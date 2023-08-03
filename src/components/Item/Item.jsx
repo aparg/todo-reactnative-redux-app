@@ -10,10 +10,13 @@ const Item = props => {
       <View>
         <Text style={styles.title}>{props.title}</Text>
       </View>
-      <View>
+      {props.description && (
         <Text style={styles.desc}>{props.description}</Text>
-      </View>
-      <Pressable onPress={() => dispatch(removeTodo(props.id))}>
+      )}
+
+      <Pressable
+        style={styles.delBtnWrapper}
+        onPress={() => dispatch(removeTodo(props.id))}>
         <Image
           source={require('../../images/delete-button.png')}
           style={styles.delBtn}
@@ -24,14 +27,21 @@ const Item = props => {
 };
 
 const styles = StyleSheet.create({
-  title: {fontSize: 50, color: '#fff'},
-  desc: {fontSize: 30, color: '#fff'},
+  title: {
+    fontSize: 40,
+    color: '#fff',
+    fontFamily: 'Satisfy-Regular',
+  },
+  desc: {fontSize: 15, color: '#fff', fontStyle: 'italic'},
   item: {
     borderRadius: 20,
     padding: 10,
     backgroundColor: '#6758ad',
     width: 350,
     margin: 5,
+  },
+  delBtnWrapper: {
+    alignSelf: 'center',
   },
   delBtn: {
     alignSelf: 'center',
