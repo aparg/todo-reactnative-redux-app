@@ -8,6 +8,7 @@ const TodoInput = () => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+
   return (
     <View style={styles.main}>
       <Text style={styles.dataTitle}>Enter your todo task</Text>
@@ -25,8 +26,13 @@ const TodoInput = () => {
       <Pressable
         onPress={() => {
           const id = nanoid();
+
           if (!title) {
             Alert.alert('Title is required!');
+          } else if (title.length > 25) {
+            Alert.alert("Title can't have more than 25 characters");
+          } else if (description.length > 50) {
+            Alert.alert("Description can't have longer than 50 characters");
           } else {
             dispatch(addTodo({id, title, description}));
             setTitle('');
