@@ -8,10 +8,10 @@ const Item = props => {
   return (
     <View style={styles.item}>
       <View>
-        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.title}> {props.title}</Text>
       </View>
       {props.description && (
-        <Text style={styles.desc}>{props.description}</Text>
+        <Text style={styles.desc}> {props.description}</Text>
       )}
 
       <Pressable

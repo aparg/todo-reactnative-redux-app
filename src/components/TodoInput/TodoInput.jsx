@@ -1,4 +1,4 @@
-import {View, Text, TextInput, Pressable, Image} from 'react-native';
+import {View, Text, TextInput, Pressable, Image, Alert} from 'react-native';
 import {useState} from 'react';
 import {addTodo} from '../../slices/slice';
 import {useDispatch} from 'react-redux';
@@ -25,9 +25,13 @@ const TodoInput = () => {
       <Pressable
         onPress={() => {
           const id = nanoid();
-          dispatch(addTodo({id, title, description}));
-          setTitle('');
-          setDescription('');
+          if (!title) {
+            Alert.alert('Title is required!');
+          } else {
+            dispatch(addTodo({id, title, description}));
+            setTitle('');
+            setDescription('');
+          }
         }}>
         <Image source={require('../../images/add-button-1.png')} />
       </Pressable>
