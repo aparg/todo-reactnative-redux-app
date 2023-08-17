@@ -56,5 +56,9 @@
 		<string>Satisfy-Regular.ttf</string>
 		<string>RussoOne-Regular.ttf</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow access to the photo library for selecting images</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow access to the camera for capturing images</string>
 </dict>
 </plist>

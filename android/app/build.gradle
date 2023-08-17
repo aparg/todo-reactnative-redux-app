@@ -70,7 +70,8 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 
 android {
     ndkVersion rootProject.ext.ndkVersion
-
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     namespace "com.todo"
@@ -80,6 +81,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        targetSdkVersion 27
+        vectorDrawables.useSupportLibrary = true
     }
     signingConfigs {
         debug {
@@ -117,6 +120,20 @@ dependencies {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
+    }
+}
+
+allprojects {
+    repositories {
+      mavenLocal()
+      jcenter()
+      maven { url "$rootDir/../node_modules/react-native/android" }
+
+      // ADD THIS
+      maven { url 'https://maven.google.com' }
+
+      // ADD THIS
+      maven { url "https://www.jitpack.io" }
     }
 }
 

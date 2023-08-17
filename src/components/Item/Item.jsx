@@ -1,27 +1,32 @@
-import {useState} from 'react';
 import {View, Pressable, Text, StyleSheet, Image} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {removeTodo} from '../../slices/slice';
+import {removeTodo, setEditMode} from '../../slices/slice';
 
-const Item = props => {
+const Item = ({id, title, description}) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.item}>
       <View>
-        <Text style={styles.title}> {props.title}</Text>
+        <Text style={styles.title}> {title}</Text>
       </View>
-      {props.description && (
-        <Text style={styles.desc}> {props.description}</Text>
-      )}
+      {description && <Text style={styles.desc}> {description}</Text>}
+      <View style={styles.btnWrapper}>
+        <Pressable
+          style={styles.delBtnWrapper}
+          onPress={() => dispatch(removeTodo(id))}>
+          <Image
+            source={require('../../images/delete-button.png')}
+            style={styles.delBtn}
+          />
+        </Pressable>
 
-      <Pressable
-        style={styles.delBtnWrapper}
-        onPress={() => dispatch(removeTodo(props.id))}>
-        <Image
-          source={require('../../images/delete-button.png')}
-          style={styles.delBtn}
-        />
-      </Pressable>
+        <Pressable onPress={() => dispatch(setEditMode(id))}>
+          <Image
+            source={require('../../images/edit-button.png')}
+            style={styles.editBtn}
+          />
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -40,11 +45,10 @@ const styles = StyleSheet.create({
     width: 350,
     margin: 5,
   },
-  delBtnWrapper: {
-    alignSelf: 'center',
-  },
-  delBtn: {
-    alignSelf: 'center',
+  btnWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });
 

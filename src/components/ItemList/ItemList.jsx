@@ -4,7 +4,6 @@ import {useSelector} from 'react-redux';
 
 const ItemList = () => {
   const todos = useSelector(state => state.todos?.todos);
-
   const renderItem = ({item}) => {
     return (
       <Item

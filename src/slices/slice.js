@@ -2,6 +2,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 let initialState = {
   todos: [],
+  editMode: false,
+  editId: null,
 };
 
 const todosSlice = createSlice({
@@ -9,7 +11,6 @@ const todosSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (state, action) => {
-      console.log(action.payload.id);
       state.todos = [
         {
           id: action.payload.id,
@@ -21,13 +22,25 @@ const todosSlice = createSlice({
       ];
     },
     removeTodo: (state, action) => {
-      console.log({state});
       state.todos = state.todos.filter(todo => todo.id != action.payload);
-      console.log(state);
+    },
+    setEditMode: (state, action) => {
+      state.editMode = true;
+      state.editId = action.payload;
+    },
+    editTodo: (state, action) => {
+      state.todos.forEach(todo => {
+        if (todo.id === state.editId) {
+          todo.title = action.payload.title;
+          todo.description = action.payload.description;
+        }
+      });
+      state.editMode = false;
+      state.editId = null;
     },
   },
 });
 
-export const {addTodo, removeTodo} = todosSlice.actions;
+export const {addTodo, removeTodo, setEditMode, editTodo} = todosSlice.actions;
 
 export default todosSlice.reducer;

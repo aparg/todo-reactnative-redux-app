@@ -1,5 +1,5 @@
 # React Native Assignments 📝
-This is a simple todo app developed using redux with react-native.
+TODO app
 
 
 # Screenshots 📱
