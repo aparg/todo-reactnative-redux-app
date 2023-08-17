@@ -2,14 +2,24 @@ import {View, Pressable, Text, StyleSheet, Image} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {removeTodo, setEditMode} from '../../slices/slice';
 
-const Item = ({id, title, description}) => {
+const Item = ({id, title, description, selectedImage}) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.item}>
-      <View>
-        <Text style={styles.title}> {title}</Text>
+      <View style={styles.contentWrapper}>
+        <View style={styles.textContent}>
+          <Text style={styles.title}> {title}</Text>
+          {description && <Text style={styles.desc}> {description}</Text>}
+        </View>
+        {selectedImage && (
+          <Image
+            source={{uri: selectedImage}}
+            height={100}
+            width={100}
+            style={styles.imageContent}
+          />
+        )}
       </View>
-      {description && <Text style={styles.desc}> {description}</Text>}
       <View style={styles.btnWrapper}>
         <Pressable
           style={styles.delBtnWrapper}
@@ -32,6 +42,16 @@ const Item = ({id, title, description}) => {
 };
 
 const styles = StyleSheet.create({
+  contentWrapper: {
+    flexDirection: 'row',
+  },
+  imageContent: {
+    justifyContent: 'flex-end',
+    borderRadius: 5,
+  },
+  textContent: {
+    flex: 1,
+  },
   title: {
     fontSize: 40,
     color: '#fff',
@@ -48,7 +68,12 @@ const styles = StyleSheet.create({
   btnWrapper: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-evenly',
+    paddingTop: 5,
+  },
+  editBtn: {
+    width: 30,
+    height: 30,
   },
 });
 

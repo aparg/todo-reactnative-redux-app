@@ -17,12 +17,13 @@ const TodoInput = () => {
 
   useEffect(() => {
     if (editMode) {
-      const titleValue = todos.find(todo => todo.id === editId).title;
+      const selectedTodo = todos.find(todo => todo.id === editId);
+      const titleValue = selectedTodo.title;
       setTitle(titleValue);
-      const descriptionValue = todos.find(
-        todo => todo.id === editId,
-      ).description;
+      const descriptionValue = selectedTodo.description;
       setDescription(descriptionValue);
+      const selectedImage = selectedTodo.selectedImage;
+      setSelectedImage(selectedImage);
     }
   }, [editMode]);
 
@@ -50,6 +51,7 @@ const TodoInput = () => {
     } else return true;
     return false;
   };
+
   return (
     <View style={styles.main}>
       <Text style={styles.dataTitle}>Enter your todo task</Text>
@@ -63,19 +65,23 @@ const TodoInput = () => {
         onChangeText={setDescription}
         placeholder="Description(if any)"
         value={description}></TextInput>
-      {selectedImage && (
-        <Image source={{uri: selectedImage}} height={100} width={100} />
-      )}
-      <Pressable onPress={handleImagePicker}>
-        <Text>Insert an image</Text>
-      </Pressable>
+      <View style={styles.contentRow}>
+        {selectedImage && (
+          <Image source={{uri: selectedImage}} height={100} width={100} />
+        )}
+        <Pressable onPress={handleImagePicker} style={styles.imageAddBtn}>
+          <Text style={styles.imageAddBtnTxt}>Insert an image</Text>
+        </Pressable>
+      </View>
       {editMode ? (
         <Pressable
           onPress={() => {
             if (validation()) {
-              dispatch(editTodo({title, description}));
+              dispatch(editTodo({title, description, selectedImage}));
               setTitle('');
               setDescription('');
+              setSelectedImage(null);
+              console.log(selectedImage);
             }
           }}>
           <Image source={require('../../images/edit-button.png')} />
@@ -85,12 +91,13 @@ const TodoInput = () => {
           onPress={() => {
             const id = nanoid();
             if (validation()) {
-              dispatch(addTodo({id, title, description}));
+              dispatch(addTodo({id, title, description, selectedImage}));
               setTitle('');
               setDescription('');
+              setSelectedImage(null);
             }
           }}>
-          <Image source={require('../../images/add-button-1.png')} />
+          <Image source={require('../../images/add-button.png')} />
         </Pressable>
       )}
     </View>
@@ -114,6 +121,22 @@ const styles = {
     fontSize: 30,
     color: '#fff',
     fontFamily: 'RussoOne-Regular',
+  },
+  imageAddBtn: {
+    backgroundColor: '#fff',
+    padding: 5,
+    borderRadius: 5,
+    margin: 5,
+    // alignSelf: 'center',
+  },
+  imageAddBtnTxt: {
+    color: '#6758ad',
+  },
+  contentRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    margin: 5,
+    alignItems: 'center',
   },
 };
 

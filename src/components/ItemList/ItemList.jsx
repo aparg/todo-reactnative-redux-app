@@ -10,6 +10,7 @@ const ItemList = () => {
         id={item.id}
         title={item.title}
         description={item.description}
+        selectedImage={item.selectedImage}
         key={item.id}
       />
     );

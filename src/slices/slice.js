@@ -16,7 +16,7 @@ const todosSlice = createSlice({
           id: action.payload.id,
           title: action.payload.title,
           description: action.payload.description,
-          done: false,
+          selectedImage: action.payload.selectedImage,
         },
         ...state.todos,
       ];
@@ -33,6 +33,7 @@ const todosSlice = createSlice({
         if (todo.id === state.editId) {
           todo.title = action.payload.title;
           todo.description = action.payload.description;
+          todo.selectedImage = action.payload.selectedImage;
         }
       });
       state.editMode = false;
