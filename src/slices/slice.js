@@ -39,9 +39,13 @@ const todosSlice = createSlice({
       state.editMode = false;
       state.editId = null;
     },
+    deleteAll: (state, action) => {
+      state.todos = [];
+    },
   },
 });
 
-export const {addTodo, removeTodo, setEditMode, editTodo} = todosSlice.actions;
+export const {addTodo, removeTodo, setEditMode, editTodo, deleteAll} =
+  todosSlice.actions;
 
 export default todosSlice.reducer;

@@ -1,21 +1,50 @@
-import {FlatList, ScrollView} from 'react-native';
+import {
+  FlatList,
+  ScrollView,
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+} from 'react-native';
 import Item from '../Item/Item';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {deleteAll} from '../../slices/slice';
 
 const ItemList = () => {
+  const dispatch = useDispatch();
   const todos = useSelector(state => state.todos?.todos);
   const renderItem = ({item}) => {
     return (
-      <Item
-        id={item.id}
-        title={item.title}
-        description={item.description}
-        selectedImage={item.selectedImage}
-        key={item.id}
-      />
+      <View>
+        <Pressable
+          onPress={() => dispatch(deleteAll())}
+          style={styles.deleteAllBtn}>
+          <Text style={styles.deleteAllBtnTxt}>Delete All</Text>
+        </Pressable>
+        <Item
+          id={item.id}
+          title={item.title}
+          description={item.description}
+          selectedImage={item.selectedImage}
+          key={item.id}
+        />
+      </View>
     );
   };
   return <FlatList renderItem={renderItem} data={todos} />;
 };
+
+const styles = StyleSheet.create({
+  deleteAllBtn: {
+    backgroundColor: '#fff',
+    padding: 5,
+    borderRadius: 5,
+    margin: 5,
+    alignSelf: 'flex-end',
+  },
+  deleteAllBtnTxt: {
+    color: '#6758ad',
+  },
+});
 
 export default ItemList;
