@@ -26,11 +26,13 @@ const ItemList = () => {
   };
   return (
     <>
-      <Pressable
-        onPress={() => dispatch(deleteAll())}
-        style={styles.deleteAllBtn}>
-        <Text style={styles.deleteAllBtnTxt}>Delete All</Text>
-      </Pressable>
+      {todos.length !== 0 && (
+        <Pressable
+          onPress={() => dispatch(deleteAll())}
+          style={styles.deleteAllBtn}>
+          <Text style={styles.deleteAllBtnTxt}>Delete All</Text>
+        </Pressable>
+      )}
       <FlatList renderItem={renderItem} data={todos} />
     </>
   );
