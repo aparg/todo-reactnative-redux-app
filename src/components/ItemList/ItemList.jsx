@@ -15,23 +15,25 @@ const ItemList = () => {
   const todos = useSelector(state => state.todos?.todos);
   const renderItem = ({item}) => {
     return (
-      <View>
-        <Pressable
-          onPress={() => dispatch(deleteAll())}
-          style={styles.deleteAllBtn}>
-          <Text style={styles.deleteAllBtnTxt}>Delete All</Text>
-        </Pressable>
-        <Item
-          id={item.id}
-          title={item.title}
-          description={item.description}
-          selectedImage={item.selectedImage}
-          key={item.id}
-        />
-      </View>
+      <Item
+        id={item.id}
+        title={item.title}
+        description={item.description}
+        selectedImage={item.selectedImage}
+        key={item.id}
+      />
     );
   };
-  return <FlatList renderItem={renderItem} data={todos} />;
+  return (
+    <View>
+      <Pressable
+        onPress={() => dispatch(deleteAll())}
+        style={styles.deleteAllBtn}>
+        <Text style={styles.deleteAllBtnTxt}>Delete All</Text>
+      </Pressable>
+      <FlatList renderItem={renderItem} data={todos} />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
